@@ -1,4 +1,4 @@
-#plot1.R
+#plot2.R
 
 # This file does the following
 # 1. download data from UCI Machine Learning Repository
@@ -16,13 +16,13 @@ unzip( file.dest )
 #Step 2: Read Data into R and Subset Data
 Power.Consumption <- read.table( source.file, header = TRUE, sep = ";", na.strings = "?" )
 Power.Consumption <- Power.Consumption[Power.Consumption$Date %in% c("1/2/2007","2/2/2007") ,] 
+datetime <- strptime(paste(Power.Consumption$Date, Power.Consumption$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
 
 #Step 3: Plot the Data
 globalActivePower <- as.numeric(Power.Consumption$Global_active_power)
-png( "plot1.png",  width=480, height=480 )
-hist( Power.Consumption$Global_active_power,
-      col = "red", 
-      main = "Global Active Power", 
-      xlab = "Global Active Power (kilowatts)")
+png( "plot2.png",  width=480, height=480 )
+plot(datetime, Power.Consumption$Global_active_power,
+      type = "l", 
+      xlab = "", 
+      ylab = "Global Active Power (kilowatts)")
 dev.off()
-
